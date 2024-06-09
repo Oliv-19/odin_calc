@@ -8,6 +8,7 @@ let btns = document.querySelectorAll('.btn')
 let displayText = ''
 let ope 
 let operators = ['+', '-', 'x', '/']
+
 btns.forEach(btn => {
    
     btn.addEventListener('click', () =>{
@@ -26,9 +27,9 @@ btns.forEach(btn => {
             clear()
         } else {
             displayText += btn.textContent; 
-
+            console.log(displayText)
         }
-        
+         dis(displayText)
     })
 });
 
@@ -47,15 +48,24 @@ function divide(num1, num2){
 
 function operate(operator, num1, num2){
     console.log(operator, num1, num2)
-    let result
-    if (operator == '+') result = add(num1, num2)
-    else if (operator == '-') result = subtract(num1, num2)
-    else if (operator == 'x')result = multiply(num1, num2)
-    else if (operator == '/') result = divide(num1, num2)
-
-    console.log(result)
+   
+    if (operator == '+') displayText = add(num1, num2)
+    else if (operator == '-') displayText = subtract(num1, num2)
+    else if (operator == 'x')displayText = multiply(num1, num2)
+    else if (operator == '/') displayText = divide(num1, num2)
+    dis(displayText)
+    console.log(displayText)
+    return displayText
 }
 function clear(){
     displayText = ''
     console.log(displayText)
+    dis(displayText)
+    return displayText
 }
+
+function dis(val) { 
+    document.getElementById("result").value = val 
+}
+
+//p.textContent += displayText
