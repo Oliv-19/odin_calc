@@ -1,65 +1,65 @@
-let operator 
-let num1 
-let num2 
-
-let display = document.querySelectorAll('.display')
-let p = document.querySelectorAll('.p')
 let btns = document.querySelectorAll('.btn')
 let displayText = ''
-let ope 
-let operators = ['+', '-', 'x', '/']
+let ope = []
 
+let num = ''
 btns.forEach(btn => {
    
     btn.addEventListener('click', () =>{
+        
         if(btn.textContent == '='){
-            operators.forEach(op => {
-                if (displayText.includes(op)){
-                    displayText = displayText.split(op)
-                    ope = op
-                } else {
-                    displayText = displayText
-                }
-            })
-            operate(ope, displayText[0], displayText[1])
+            num = num.split(',')
+            displayText = num.reduce((prev, val, i, arr) => {
+                val = arr[i+ 1] 
+                console.log(ope[i], prev, val)
+
+                prev = operate(ope[i], prev, val)
+                
+                return prev
+                
+            }, num[0])
+            console.log(num)
 
         } else if (btn.textContent == 'C'){
             clear()
         } else {
+            
             displayText += btn.textContent; 
-            console.log(displayText)
+
+            
+            if(btn.textContent == '+' ||btn.textContent == '-' ||btn.textContent == 'x' ||btn.textContent == '/' ){
+                ope.push(btn.textContent)
+                num += ','
+
+            }else{
+                num += btn.textContent; 
+            }
+            
+            
+            console.log(ope)
         }
          dis(displayText)
     })
 });
 
-function add(num1, num2){
-    return Number(num1 )+ Number(num2)
-}
-function subtract(num1, num2){
-    return Number(num1 - num2)
-}
-function multiply(num1, num2){
-    return Number(num1 * num2)
-}
-function divide(num1, num2){
-    return Number(num1 / num2)
-}
+function add(num1, num2){return Number(num1 )+ Number(num2)}
+function subtract(num1, num2){return Number(num1 - num2)}
+function multiply(num1, num2){return Number(num1 * num2)}
+function divide(num1, num2){return Number(num1 / num2)}
 
 function operate(operator, num1, num2){
-    console.log(operator, num1, num2)
-   
     if (operator == '+') displayText = add(num1, num2)
     else if (operator == '-') displayText = subtract(num1, num2)
     else if (operator == 'x')displayText = multiply(num1, num2)
     else if (operator == '/') displayText = divide(num1, num2)
     dis(displayText)
-    console.log(displayText)
+    //console.log(displayText)
     return displayText
 }
 function clear(){
     displayText = ''
-    console.log(displayText)
+    ope = []
+    num = ''
     dis(displayText)
     return displayText
 }
@@ -67,5 +67,3 @@ function clear(){
 function dis(val) { 
     document.getElementById("result").value = val 
 }
-
-//p.textContent += displayText

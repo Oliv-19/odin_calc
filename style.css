@@ -15,17 +15,24 @@
     
 }
 .display{
-    /* border: 1px solid black; */
-    font-family: "VT323", monospace;
-
     width: 90%;
     height: 40px;
-    padding: 3px;
+    
+    margin: auto;
+    
+}
+#result{
+    /* border: 1px solid black; */
+    font-family: "VT323", monospace;
+    border: none;
+    width: 100%;
+    /*height: 40px; */
+    padding: 3px 7px;
     margin: auto;
     box-shadow: 1px 1px 9px 1px #a86b62;
     border-radius: 2px;
     background-color: #ffe1e3;
-
+    margin-top: 5px;
     color: #936159;
     font-weight: 900;
     font-size: xx-large;
@@ -50,7 +57,7 @@
     color: white;
     font-size: large;
 }
-.ope{
+.ope, .equal, .clear{
     background-color: rgb(255 225 227);
     color: #936159;
     font-weight: 900;
