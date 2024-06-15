@@ -2,7 +2,7 @@ let btns = document.querySelectorAll('.btn')
 let del = document.querySelector('.del')
 let displayText = ''
 let ope = []
-let point = ''
+let point = document.querySelector('.point')
 let num = ''
 
 
@@ -17,18 +17,13 @@ function delLast(){
     }
 }
 
-
-
-btns.forEach(btn => {
-   
-    btn.addEventListener('click', () =>{
-        
-        if (btn.textContent == '⌦'){
+function checkBtn(char){
+if (char == '⌦'){
             
             delLast()
            
         
-        }else if(btn.textContent == '='){
+        }else if(char == '='){
             num = num.split(',')
             num = num.filter(function(e){return e}); 
             displayText = num.reduce((prev, val, i, arr) => {
@@ -43,26 +38,25 @@ btns.forEach(btn => {
             console.log(num)
             point.disabled = false
 
-        } else if (btn.textContent == 'C'){
+        } else if (char == 'C'){
             clear()
             point.disabled = false
         
         }  else {
             
-            displayText += btn.textContent; 
+            displayText += char; 
 
-            if (btn.textContent == '.'){
-                point = btn
+            if (char == '.'){
                 point.disabled = true
                 num += '.'
             
-            } else if(btn.textContent == '+' ||btn.textContent == '-' ||btn.textContent == 'x' ||btn.textContent == '/' ){
-                ope.push(btn.textContent)
+            } else if(char == '+' ||char == '-' ||char == 'x' ||char == '/' ){
+                ope.push(char)
                 num += ','
                 point.disabled = false
 
             } else{
-                num += btn.textContent; 
+                num += char; 
             }
             
             
@@ -70,8 +64,66 @@ btns.forEach(btn => {
             console.log(num)
         }
          dis(displayText)
+}
+
+btns.forEach(btn => {
+    btn.addEventListener('click', () =>{
+        checkBtn(btn.textContent)
     })
 });
+// btns.forEach(btn => {
+   
+//     btn.addEventListener('click', () =>{
+        
+//         if (btn.textContent == '⌦'){
+            
+//             delLast()
+           
+        
+//         }else if(btn.textContent == '='){
+//             num = num.split(',')
+//             num = num.filter(function(e){return e}); 
+//             displayText = num.reduce((prev, val, i, arr) => {
+//                 val = arr[i+ 1] 
+//                 console.log(ope[i], prev, val)
+
+//                 prev = operate(ope[i], prev, val)
+                
+//                 return prev
+                
+//             }, num[0])
+//             console.log(num)
+//             point.disabled = false
+
+//         } else if (btn.textContent == 'C'){
+//             clear()
+//             point.disabled = false
+        
+//         }  else {
+            
+//             displayText += btn.textContent; 
+
+//             if (btn.textContent == '.'){
+//                 point = btn
+//                 point.disabled = true
+//                 num += '.'
+            
+//             } else if(btn.textContent == '+' ||btn.textContent == '-' ||btn.textContent == 'x' ||btn.textContent == '/' ){
+//                 ope.push(btn.textContent)
+//                 num += ','
+//                 point.disabled = false
+
+//             } else{
+//                 num += btn.textContent; 
+//             }
+            
+            
+//             console.log(ope)
+//             console.log(num)
+//         }
+//          dis(displayText)
+//     })
+// });
 
 function add(num1, num2){return Number(num1 )+ Number(num2)}
 function subtract(num1, num2){return Number(num1 - num2)}
