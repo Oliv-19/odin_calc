@@ -1,14 +1,36 @@
 let btns = document.querySelectorAll('.btn')
+let del = document.querySelector('.del')
 let displayText = ''
 let ope = []
-
+let point = ''
 let num = ''
+
+
+function delLast(){
+    lastD = displayText.substring(displayText.length -1)
+    displayText = displayText.slice(0, -1)
+
+    if(lastD== '+' || lastD== '-' || lastD == 'x' || lastD== '/' ){ 
+        ope.pop() 
+    }else{
+        num = num.slice(0, -1)
+    }
+}
+
+
+
 btns.forEach(btn => {
    
     btn.addEventListener('click', () =>{
         
-        if(btn.textContent == '='){
+        if (btn.textContent == '⌦'){
+            
+            delLast()
+           
+        
+        }else if(btn.textContent == '='){
             num = num.split(',')
+            num = num.filter(function(e){return e}); 
             displayText = num.reduce((prev, val, i, arr) => {
                 val = arr[i+ 1] 
                 console.log(ope[i], prev, val)
@@ -19,24 +41,33 @@ btns.forEach(btn => {
                 
             }, num[0])
             console.log(num)
+            point.disabled = false
 
         } else if (btn.textContent == 'C'){
             clear()
-        } else {
+            point.disabled = false
+        
+        }  else {
             
             displayText += btn.textContent; 
 
+            if (btn.textContent == '.'){
+                point = btn
+                point.disabled = true
+                num += '.'
             
-            if(btn.textContent == '+' ||btn.textContent == '-' ||btn.textContent == 'x' ||btn.textContent == '/' ){
+            } else if(btn.textContent == '+' ||btn.textContent == '-' ||btn.textContent == 'x' ||btn.textContent == '/' ){
                 ope.push(btn.textContent)
                 num += ','
+                point.disabled = false
 
-            }else{
+            } else{
                 num += btn.textContent; 
             }
             
             
             console.log(ope)
+            console.log(num)
         }
          dis(displayText)
     })
@@ -63,6 +94,8 @@ function clear(){
     dis(displayText)
     return displayText
 }
+
+
 
 function dis(val) { 
     document.getElementById("result").value = val 
